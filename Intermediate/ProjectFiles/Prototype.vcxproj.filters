@@ -4,7 +4,7 @@
 	<ItemGroup>
 		<None Include="..\..\Prototype.uproject" />
 		<Filter Include="Source">
-			<UniqueIdentifier>{ED4116E1-0D52-4E08-A5C0-33EF9EE8D5D6}</UniqueIdentifier>
+			<UniqueIdentifier>{41213122-A816-4309-B367-0A013D5AF260}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Source\Prototype.Target.cs">
 			<Filter>Source</Filter>
@@ -13,7 +13,7 @@
 			<Filter>Source</Filter>
 		</None >
 		<Filter Include="Config">
-			<UniqueIdentifier>{1E7BCFEF-CDF4-4F08-9623-51D34EDA1532}</UniqueIdentifier>
+			<UniqueIdentifier>{E952200E-C017-492F-BC04-E87EF5FB3E66}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Config\DefaultEditor.ini">
 			<Filter>Config</Filter>
@@ -31,12 +31,12 @@
 			<Filter>Config</Filter>
 		</None >
 		<Filter Include="Source\Prototype">
-			<UniqueIdentifier>{156F5ABF-2E9C-4CE7-B986-8B277C465D65}</UniqueIdentifier>
+			<UniqueIdentifier>{1EE41A92-D3CA-4223-ABB5-532A59D7C2EF}</UniqueIdentifier>
 		</Filter>
-		<ClCompile Include="..\..\Source\Prototype\CharacterControl.cpp">
+		<ClCompile Include="..\..\Source\Prototype\ActorBobbing.cpp">
 			<Filter>Source\Prototype</Filter>
 		</ClCompile >
-		<ClInclude Include="..\..\Source\Prototype\CharacterControl.h">
+		<ClInclude Include="..\..\Source\Prototype\ActorBobbing.h">
 			<Filter>Source\Prototype</Filter>
 		</ClInclude >
 		<None Include="..\..\Source\Prototype\Prototype.Build.cs">
@@ -48,11 +48,17 @@
 		<ClInclude Include="..\..\Source\Prototype\Prototype.h">
 			<Filter>Source\Prototype</Filter>
 		</ClInclude >
+		<ClCompile Include="..\..\Source\Prototype\SideViewCharacter.cpp">
+			<Filter>Source\Prototype</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\Prototype\SideViewCharacter.h">
+			<Filter>Source\Prototype</Filter>
+		</ClInclude >
 		<Filter Include="Source\Prototype\Resources">
-			<UniqueIdentifier>{C7E6380C-BC5D-4E39-9423-6BB24C2B8EFA}</UniqueIdentifier>
+			<UniqueIdentifier>{64A52D6F-8873-45F1-9D95-14935FC93DEA}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\Prototype\Resources\Windows">
-			<UniqueIdentifier>{0B5FD086-A1B1-42C4-A3EC-BF804DF89F50}</UniqueIdentifier>
+			<UniqueIdentifier>{3D8D45E8-07D3-4EEB-8DDD-9B22B199A2D9}</UniqueIdentifier>
 		</Filter>
 		<ResourceCompile Include="..\..\Source\Prototype\Resources\Windows\Prototype.rc">
 			<Filter>Source\Prototype\Resources\Windows</Filter>

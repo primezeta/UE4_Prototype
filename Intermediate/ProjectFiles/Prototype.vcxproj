@@ -52,15 +52,17 @@
 		<None Include="..\..\Config\DefaultEngine.ini" />
 		<None Include="..\..\Config\DefaultGame.ini" />
 		<None Include="..\..\Config\DefaultInput.ini" />
-		<ClCompile Include="..\..\Source\Prototype\CharacterControl.cpp" />
-		<ClInclude Include="..\..\Source\Prototype\CharacterControl.h" />
+		<ClCompile Include="..\..\Source\Prototype\ActorBobbing.cpp" />
+		<ClInclude Include="..\..\Source\Prototype\ActorBobbing.h" />
 		<None Include="..\..\Source\Prototype\Prototype.Build.cs" />
 		<ClCompile Include="..\..\Source\Prototype\Prototype.cpp" />
 		<ClInclude Include="..\..\Source\Prototype\Prototype.h" />
+		<ClCompile Include="..\..\Source\Prototype\SideViewCharacter.cpp" />
+		<ClInclude Include="..\..\Source\Prototype\SideViewCharacter.h" />
 		<ResourceCompile Include="..\..\Source\Prototype\Resources\Windows\Prototype.rc" />
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{E095513A-976D-42AA-84C0-71450F13C402}</ProjectGuid>
+		<ProjectGuid>{B3B80043-2399-4086-81F3-3A00F15FFE81}</ProjectGuid>
 		<Keyword>MakeFileProj</Keyword>
 		<RootNamespace>Prototype</RootNamespace>
 	</PropertyGroup>

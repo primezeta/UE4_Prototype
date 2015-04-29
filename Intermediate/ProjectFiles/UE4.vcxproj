@@ -10399,7 +10399,7 @@
 		<None Include="..\..\..\..\..\..\..\Program Files\Epic Games\4.7\Engine\Plugins\Slate\SlateRemote\Resources\Icon128.png" />
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{0AE0BF25-DC38-4A34-A1EE-965DEF3DF1DE}</ProjectGuid>
+		<ProjectGuid>{2768046E-4821-4BC9-8B73-5C7B1B9A8293}</ProjectGuid>
 		<Keyword>MakeFileProj</Keyword>
 		<RootNamespace>UE4</RootNamespace>
 	</PropertyGroup>
