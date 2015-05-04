@@ -21,5 +21,27 @@ void ALevelGenGameMode::InitGame(const FString& MapName, const FString& Options,
 	UWorld * World = GetWorld();
 	FActorSpawnParameters SpawnInfo;
 	SpawnInfo.Owner = this;
-	ATriggerBox * BasicTile = dynamic_cast<ATriggerBox*>(World->SpawnActor(BasicTileBlueprintClass, &SpawnLocation, &InitialRotation, SpawnInfo));
+	ATriggerBox * BasicTile = static_cast<ATriggerBox*>(World->SpawnActor(BasicTileBlueprintClass, &SpawnLocation, &InitialRotation, SpawnInfo));
+
+	//Testing placement
+	//BasicTile->GetActorBounds(false, Origin, BoxExtent);
+	//FVector NextSpawnLocationNoCollidingComponents = FVector(SpawnLocation.X, SpawnLocation.Y + (BoxExtent.Y / 2), SpawnLocation.Z);
+	//BasicTile->GetActorBounds(true, Origin, BoxExtent);
+	//FVector NextSpawnLocationYesCollidingComponents = FVector(SpawnLocation.X, SpawnLocation.Y + (BoxExtent.Y * 2), SpawnLocation.Z); <------ this one appears to place two of the tile components exactly side-by-side
+
+	FVector Origin;
+	FVector BoxExtent;
+	BasicTile->GetActorBounds(true, Origin, BoxExtent);
+
+	for (int i = 0; i < 5; i++)
+	{
+		SpawnLocation.Y -= BoxExtent.Y * 2;
+		BasicTile = static_cast<ATriggerBox*>(World->SpawnActor(BasicTileBlueprintClass, &SpawnLocation, &InitialRotation, SpawnInfo));
+	}
+	SpawnLocation = FVector(1060.0f, 20.0f, 318.0f);
+	for (int i = 0; i < 5; i++)
+	{
+		SpawnLocation.Y += BoxExtent.Y * 2;
+		BasicTile = static_cast<ATriggerBox*>(World->SpawnActor(BasicTileBlueprintClass, &SpawnLocation, &InitialRotation, SpawnInfo));
+	}
 }
