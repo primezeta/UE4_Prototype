@@ -21,7 +21,7 @@ void ALevelGenGameMode::InitGame(const FString& MapName, const FString& Options,
 	UWorld * World = GetWorld();
 	FActorSpawnParameters SpawnInfo;
 	SpawnInfo.Owner = this;
-	ATriggerBox * BasicTile = static_cast<ATriggerBox*>(World->SpawnActor(BasicTileBlueprintClass, &SpawnLocation, &InitialRotation, SpawnInfo));
+	ATriggerBox * BasicTile = Cast<ATriggerBox>(World->SpawnActor(BasicTileBlueprintClass, &SpawnLocation, &InitialRotation, SpawnInfo));
 
 	//Testing placement
 	//BasicTile->GetActorBounds(false, Origin, BoxExtent);

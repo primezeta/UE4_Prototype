@@ -10,6 +10,10 @@ class PROTOTYPE_API ASideViewCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+private:
+	FObjectInitializer MouseDragLineObjectInitializer;
+	ULineBatchComponent MouseDragLine;
+
 public:
 	// Sets default values for this character's properties
 	ASideViewCharacter();
