@@ -3,59 +3,29 @@
 #include "Prototype.h"
 #include "SideViewCharacter.h"
 
-static bool bPreviousMouseDragIsActive = false;
-static bool bMouseDragIsActive = false;
-static APlayerController* PlayerController = nullptr;
 
 // Sets default values
-ASideViewCharacter::ASideViewCharacter() : MouseDragLine(MouseDragLineObjectInitializer)
+ASideViewCharacter::ASideViewCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	bMouseDragIsActive = false;
-	MouseDragLine.bHiddenInGame = true;
-	PlayerController = Cast<APlayerController>(GetController());
-	check(PlayerController != nullptr);
+	CharacterIsSelected = false;
 }
 
 // Called when the game starts or when spawned
 void ASideViewCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	PlayerController->bShowMouseCursor = true;
 }
 
 // Called every frame
 void ASideViewCharacter::Tick( float DeltaTime )
 {
-	Super::Tick( DeltaTime );
-
-	if (bMouseDragIsActive != bPreviousMouseDragIsActive)
+	Super::Tick(DeltaTime);
+	
+	if (CharacterIsSelected)
 	{
-		if (bMouseDragIsActive)
-		{
-			//Draw a line from the player to the mouse location
-			APlayerController* PlayerController = Cast<APlayerController>(GetController());
-			check(PlayerController != nullptr);
-			FVector PlayerLocation = this->GetActorLocation();
-			float mx, my;
-			PlayerController->GetMousePosition(mx, my);
-			FLinearColor LineColor(FColor::Green);
-
-			//Not sure the best value for these right now
-			uint8 LineDepthPriority = 0;
-			float LineThickness = 1.0f;
-			float LineLifeTime = 0.0f;
-
-			//Draw the line from the player location to the mouse X,Y where the world Y is the mouse X and world Z is the mouse Y. Always use player X for the World X.
-			MouseDragLine.DrawLine(PlayerLocation, FVector(PlayerLocation.X, mx, my), LineColor, LineDepthPriority, LineThickness, LineLifeTime);
-			MouseDragLine.bHiddenInGame = false;
-		}
-		else
-		{
-			//Hide the line
-			MouseDragLine.Deactivate();
-		}
+		ActorInteractor()->DrawMoveCommandLine(PlayerPosition(), MousePosition());
 	}
 }
 
@@ -67,41 +37,67 @@ void ASideViewCharacter::SetupPlayerInputComponent(class UInputComponent* InputC
 	InputComponent->BindAction("MouseButtonRight", IE_Released, this, &ASideViewCharacter::MoveCommand_MouseUp);
 }
 
+//MouseDragLine.DrawLine(PlayerLocation, FVector(PlayerLocation.X, mx, my), LineColor, LineDepthPriority, LineThickness, LineLifeTime);
 void ASideViewCharacter::MoveCommand_MouseDown()
 {
 	static const bool bTraceComplex = false;
-
-	float mx = 0.0f;
-	float my = 0.0f;
-	PlayerController->GetMousePosition(mx, my);
-
-	// Do a trace and see if there the position intersects something in the world  
-	FVector2D MousePosition(mx, my);
-	FHitResult HitResult;	
-	if (PlayerController->GetHitResultAtScreenPosition(MousePosition, ECC_Visibility, bTraceComplex, HitResult) == true)
+	FHitResult HitResult;
+	if (PlayerController()->GetHitResultAtScreenPosition(ScreenMousePosition(), ECC_Visibility, bTraceComplex, HitResult) == true)
 	{
-		APawn* ClickedPawn = Cast<ACharacter>(HitResult.GetActor());
-		if (ClickedPawn == this)
+		CharacterIsSelected = false; //First assume the player character was not clicked...
+		APawn* ClickedPawn = Cast<APawn>(HitResult.GetActor());
+		if (ClickedPawn == Cast<APawn>(this))
 		{
 			//The player character was clicked!
 			GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, "Yay!");
-
-			bPreviousMouseDragIsActive = bMouseDragIsActive;
-			bMouseDragIsActive = true;
-		}
-		else
-		{
-			GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, "noooo");
-
-			//Is this necessary? Don't know yet
-			bPreviousMouseDragIsActive = bMouseDragIsActive;
-			bMouseDragIsActive = false;
+			CharacterIsSelected = true;
 		}
 	}
 }
 
 void ASideViewCharacter::MoveCommand_MouseUp()
 {
-	bMouseDragIsActive = false;
-	bPreviousMouseDragIsActive = false;
+	CharacterIsSelected = false;
+}
+
+APlayerController const * ASideViewCharacter::PlayerController()
+{
+	static APlayerController * ThePlayerController = nullptr;
+	if (ThePlayerController == nullptr)
+	{
+		ThePlayerController = Cast<APlayerController>(GetController());
+	}
+	return ThePlayerController;
+}
+
+UActorInteractionSceneComponent * ASideViewCharacter::ActorInteractor()
+{
+	static UActorInteractionSceneComponent * TheActorInteractor = nullptr;
+	if (TheActorInteractor == nullptr)
+	{
+		TheActorInteractor = nullptr;
+	}
+	return TheActorInteractor;
+}
+
+FVector ASideViewCharacter::MousePosition()
+{
+	static FVector Position;
+	PlayerController()->GetMousePosition(Position.Y, Position.Z);
+	Position.X = PlayerPosition().X;
+	return Position;
+}
+
+FVector2D ASideViewCharacter::ScreenMousePosition()
+{
+	static FVector2D Position;
+	PlayerController()->GetMousePosition(Position.X, Position.Y);
+	return Position;
+}
+
+FVector ASideViewCharacter::PlayerPosition()
+{
+	static FVector Position;
+	Position = this->GetActorLocation();
+	return Position;
 }

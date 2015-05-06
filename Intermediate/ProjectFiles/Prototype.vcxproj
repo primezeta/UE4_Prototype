@@ -54,8 +54,10 @@
     <ClCompile Include="..\..\Source\Prototype\ActorBobbing.cpp" />
     <ClInclude Include="..\..\Source\Prototype\ActorBobbing.h" />
     <None Include="..\..\Source\Prototype\Prototype.Build.cs" />
+    <ClCompile Include="..\..\Source\Prototype\ActorInteractionSceneComponent.cpp" />
     <ClCompile Include="..\..\Source\Prototype\LevelGenGameMode.cpp" />
     <ClCompile Include="..\..\Source\Prototype\Prototype.cpp" />
+    <ClInclude Include="..\..\Source\Prototype\ActorInteractionSceneComponent.h" />
     <ClInclude Include="..\..\Source\Prototype\LevelGenGameMode.h" />
     <ClInclude Include="..\..\Source\Prototype\Prototype.h" />
     <ClCompile Include="..\..\Source\Prototype\SideViewCharacter.cpp" />
